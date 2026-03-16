@@ -1,0 +1,27 @@
+import { useNavigate } from 'react-router-dom';
+import useBookingStore from '../store/bookingStore';
+
+const RoomDetails = () => {
+    // ... existing imports and setup
+    const { setBookingData } = useBookingStore();
+
+    const handleBookingStart = () => {
+        if (!isAuthenticated) {
+            navigate('/login', { state: { from: { pathname: `/rooms/${id}` } } });
+            return;
+        }
+        
+        // Save initial selection to store
+        setBookingData({
+            room: currentRoom,
+            checkIn: bookingDates.checkIn,
+            checkOut: bookingDates.checkOut,
+            guests: { adults: bookingDates.guests, children: 0 }
+        });
+
+        // Navigate to multi-step flow
+        navigate('/booking');
+    };
+    
+    // ... rest of the component
+}
